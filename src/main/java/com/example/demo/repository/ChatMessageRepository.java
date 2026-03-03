@@ -18,4 +18,7 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Intege
             "UNION " +
             "SELECT DISTINCT c.receiverId FROM ChatMessage c WHERE c.senderId = :userId")
     List<Integer> findChattedUserIds(@Param("userId") int userId);
+
+    // Notifications
+    long countByReceiverIdAndIsReadFalse(int receiverId);
 }

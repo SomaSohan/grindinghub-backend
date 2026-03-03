@@ -38,7 +38,22 @@ public class ChatController {
     public ResponseEntity<List<ChatMessage>> getConversation(
             @PathVariable int user1,
             @PathVariable int user2) {
+
         List<ChatMessage> conversation = chatMessageRepository.findConversation(user1, user2);
+
+        // Mark all messages where user1 is the receiver as read
+        boolean updated = false;
+        for (ChatMessage msg : conversation) {
+            if (msg.getReceiverId() == user1 && !msg.isRead()) {
+                msg.setRead(true);
+                updated = true;
+            }
+        }
+
+        if (updated) {
+            chatMessageRepository.saveAll(conversation);
+        }
+
         return ResponseEntity.ok(conversation);
     }
 

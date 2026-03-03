@@ -81,7 +81,22 @@ public class WorkOrderController {
             return ResponseEntity.ok(List.of());
         }
         int factoryId = factories.get(0).getFactoryId();
-        return ResponseEntity.ok(workOrderRepository.findByFactory_FactoryId(factoryId));
+        List<WorkOrder> orders = workOrderRepository.findByFactory_FactoryId(factoryId);
+
+        // Mark as read inside the list
+        boolean updated = false;
+        for (WorkOrder order : orders) {
+            if (!order.isRead()) {
+                order.setRead(true);
+                updated = true;
+            }
+        }
+
+        if (updated) {
+            workOrderRepository.saveAll(orders);
+        }
+
+        return ResponseEntity.ok(orders);
     }
 
     // ✏️ UPDATE: Factory updates the status

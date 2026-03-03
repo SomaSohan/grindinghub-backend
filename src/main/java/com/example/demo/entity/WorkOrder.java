@@ -33,10 +33,14 @@ public class WorkOrder {
     @Column(nullable = false)
     private String status;
 
+    @Column(name = "is_read", nullable = false)
+    private boolean isRead = false;
+
     private LocalDateTime createdAt;
 
     public WorkOrder() {
         this.status = "PENDING";
+        this.isRead = false;
         this.createdAt = LocalDateTime.now();
     }
 
@@ -102,5 +106,13 @@ public class WorkOrder {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean isRead) {
+        this.isRead = isRead;
     }
 }

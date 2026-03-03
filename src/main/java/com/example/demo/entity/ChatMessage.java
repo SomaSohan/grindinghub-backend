@@ -23,8 +23,12 @@ public class ChatMessage {
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;
 
+    @Column(name = "is_read", nullable = false)
+    private boolean isRead = false;
+
     public ChatMessage() {
         this.timestamp = LocalDateTime.now();
+        this.isRead = false;
     }
 
     public int getId() {
@@ -65,5 +69,13 @@ public class ChatMessage {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean isRead) {
+        this.isRead = isRead;
     }
 }

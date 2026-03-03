@@ -11,4 +11,9 @@ public interface WorkOrderRepository extends JpaRepository<WorkOrder, Integer> {
     List<WorkOrder> findByClient_UserId(int clientId);
 
     List<WorkOrder> findByFactory_FactoryId(int factoryId);
+
+    // Notifications
+    long countByClient_UserIdAndIsReadFalse(int clientId);
+
+    long countByFactory_FactoryIdAndIsReadFalse(int factoryId);
 }
