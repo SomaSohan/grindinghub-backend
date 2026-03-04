@@ -28,6 +28,11 @@ public class UserService {
     // Register User
     public User registerUser(User user) {
 
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if (!user.getEmail().matches(emailRegex)) {
+            throw new RuntimeException("Invalid email format! Please provide a properly formatted email address.");
+        }
+
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("Email already exists!");
         }
