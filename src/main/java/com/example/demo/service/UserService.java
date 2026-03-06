@@ -29,8 +29,13 @@ public class UserService {
     public User registerUser(User user) {
 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        if (!user.getEmail().matches(emailRegex)) {
+        if (user.getEmail() == null || !user.getEmail().matches(emailRegex)) {
             throw new RuntimeException("Invalid email format! Please provide a properly formatted email address.");
+        }
+
+        String phoneRegex = "^\\d{10}$";
+        if (user.getPhone() == null || !user.getPhone().matches(phoneRegex)) {
+            throw new RuntimeException("Invalid phone number! Phone number must be exactly 10 digits.");
         }
 
         if (userRepository.existsByEmail(user.getEmail())) {
