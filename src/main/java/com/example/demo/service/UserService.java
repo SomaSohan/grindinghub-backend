@@ -57,14 +57,7 @@ public class UserService {
             otpExpiryStorage.put(user.getEmail(), System.currentTimeMillis() + (5 * 60 * 1000));
 
             // Send email OTP
-            try {
-                emailService.sendOtpEmail(user.getEmail(), otp);
-            } catch (Exception e) {
-                System.out.println("\n\n====== CLOUD SMTP TRAPPED ======");
-                System.out.println("Email could not be sent (Ports blocked in typical Free Tiers).");
-                System.out.println("MANUAL OTP FOR " + user.getEmail() + " IS: " + otp);
-                System.out.println("=========================================\n\n");
-            }
+            emailService.sendOtpEmail(user.getEmail(), otp);
 
             throw new RuntimeException("Factory registered. OTP sent to email.");
         }
